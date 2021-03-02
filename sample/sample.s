@@ -15,3 +15,4 @@ inject:
     retq
 string: 
     .asciz "I'm in your code!\n"
+

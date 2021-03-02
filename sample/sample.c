@@ -6,6 +6,7 @@
 #include <time.h>
 
 #define UINT32_BITS     32
+#define LOOPS           100
 
 typedef struct Pair32
 {
@@ -14,22 +15,23 @@ typedef struct Pair32
 
 } Pair32;
 
-static void Pair32_init(Pair32 *Pair);
-static bool CoinFlip(void);
-static bool BitTest32(uint32_t Mask, uint8_t Index);
-static void BitSet32(uint32_t *pMask, uint8_t Index);
-static void BitReset32(uint32_t *pMask, uint8_t Index);
+void Pair32_init(Pair32 *Pair) __attribute__ ((noinline));
+bool CoinFlip(void);
+bool BitTest32(uint32_t Mask, uint8_t Index);
+void BitSet32(uint32_t *pMask, uint8_t Index);
+void BitReset32(uint32_t *pMask, uint8_t Index);
 
 int main(void)
 {
-    uint8_t i, Index;
+    int i;
+    uint8_t Index;
     Pair32 Pair;
     
     srand(time(NULL));
     
-    Pair32_init(&Pair);
+    (void) Pair32_init(&Pair);
     
-    for (i = 0; i < UINT32_BITS; ++i)
+    for (i = 0; i < LOOPS; ++i)
     {
         Index = rand() % UINT32_BITS;
         if (CoinFlip())
@@ -74,7 +76,7 @@ int main(void)
     }
     printf("\n");
     
-    if (Pair.A == Pair.B || Pair.A == 0UL || Pair.B == 0UL)
+    if (Pair.A == Pair.B || Pair.A == 0 || Pair.B == 0)
     {
         printf("You win!!!\n");
     }
@@ -82,29 +84,29 @@ int main(void)
     return EXIT_SUCCESS;
 }
 
-static void Pair32_init(Pair32 *Pair)
+void Pair32_init(Pair32 *Pair)
 {
-    Pair->A = 0UL;
-    Pair->B = 0UL;
-    printf("Initialized pair\n");
+    Pair->A = 0;
+    Pair->B = 0;
 }
 
-static bool CoinFlip(void)
+bool CoinFlip(void)
 {
     return rand() % 2 == 0;
 }
 
-static bool BitTest32(uint32_t Mask, uint8_t Index)
+bool BitTest32(uint32_t Mask, uint8_t Index)
 {
-    return (Mask & 1UL << Index) != 0UL;
+    return (Mask & 1 << Index) != 0;
 }
 
-static void BitSet32(uint32_t *pMask, uint8_t Index)
+void BitSet32(uint32_t *pMask, uint8_t Index)
 {
-    *pMask |= (1UL << Index);
+    *pMask |= (1 << Index);
 }
 
-static void BitReset32(uint32_t *pMask, uint8_t Index)
+void BitReset32(uint32_t *pMask, uint8_t Index)
 {
-    *pMask &= ~(1UL << Index);
+    *pMask &= ~(1 << Index);
 }
+

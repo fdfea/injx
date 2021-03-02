@@ -65,7 +65,7 @@ int main(int argc, char **argv)
              inject_size            = -1, 
              target_filesize        = 0, 
              inject_filesize        = 0;
-    
+             
     fstream target, inject, copy, modify;
     
     while ((ch = getopt_long(argc, argv, "t:o:i:s:e:c:j:h", long_options, NULL)) != EOF)
@@ -323,13 +323,6 @@ int main(int argc, char **argv)
         instr[0] = JMPREL32;
         jaddr = modify_inject_offset - modify_jmp_offset - sizeof(instr);
         memcpy(&instr[1], &jaddr, sizeof(jaddr));
-        
-        cout << "Instr: ";
-        for (status = 0; status < (int) sizeof(instr); ++status)
-        {
-            cout << hex << instr[status] << " ";
-        }
-        cout << endl;
         
         modify.seekp(modify_jmp_offset, ios::beg);
         

@@ -14,4 +14,3 @@ clean:
 	rm -f injx.o injx.exe
 
 .PHONY: all clean
-
