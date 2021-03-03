@@ -35,7 +35,7 @@ The command line options are:
 
 To determine the offsets to inject to and from, I recommend inspecting the target and inject files using the `objdump` tool. For example, `objdump -srxRFD <infile.exe> > <outfile.txt>` will allow you to inspect the disassembly, file offsets, and section headers. 
 
-To jump to and execute injected code, the code for the jump offset and injection offset should be in executable sections of the executable to avoid crashing (look at the section headers in `objdump`). In addition, you probably want to place the jump at the end of a function call and place a `ret` x86 instruction (opcode `0xC3`) at the end of your injected code to so it will jump back to the original application code. The jump is encoded with a `jmp rel32` instruction (opcode `0xE9`). 
+To jump to and execute injected code, the code for the jump offset and injection offset should be in executable sections of the executable to avoid crashing (look at the section headers in `objdump`). In addition, you probably want to place the jump at the end of a function call and place a `ret` x86 instruction (opcode `0xC3`) at the end of your injected code to so it will jump back to the original application code. The jump is encoded with a `jmp rel32` instruction (opcode `0xE9`). This implies that there needs to be at least 5 bytes of free space wherever the jump is placed to avoid overwriting other meaningful code. 
 
 I tested this on Ubuntu with x86-64 and ELF executables, I'm not sure how well it will work on other platforms. 
 
