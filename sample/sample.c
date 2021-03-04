@@ -15,11 +15,11 @@ typedef struct Pair32
 
 } Pair32;
 
-void Pair32_init(Pair32 *Pair) __attribute__ ((noinline));
-bool CoinFlip(void);
-bool BitTest32(uint32_t Mask, uint8_t Index);
-void BitSet32(uint32_t *pMask, uint8_t Index);
-void BitReset32(uint32_t *pMask, uint8_t Index);
+static void Pair32_init(Pair32 *Pair) __attribute__ ((noinline));
+static bool CoinFlip(void);
+static bool BitTest32(uint32_t Mask, uint8_t Index);
+static void BitSet32(uint32_t *pMask, uint8_t Index);
+static void BitReset32(uint32_t *pMask, uint8_t Index);
 
 int main(void)
 {
@@ -84,28 +84,28 @@ int main(void)
     return EXIT_SUCCESS;
 }
 
-void Pair32_init(Pair32 *Pair)
+static void Pair32_init(Pair32 *Pair)
 {
     Pair->A = 0;
     Pair->B = 0;
 }
 
-bool CoinFlip(void)
+static bool CoinFlip(void)
 {
     return rand() % 2 == 0;
 }
 
-bool BitTest32(uint32_t Mask, uint8_t Index)
+static bool BitTest32(uint32_t Mask, uint8_t Index)
 {
     return (Mask & 1 << Index) != 0;
 }
 
-void BitSet32(uint32_t *pMask, uint8_t Index)
+static void BitSet32(uint32_t *pMask, uint8_t Index)
 {
     *pMask |= (1 << Index);
 }
 
-void BitReset32(uint32_t *pMask, uint8_t Index)
+static void BitReset32(uint32_t *pMask, uint8_t Index)
 {
     *pMask &= ~(1 << Index);
 }
